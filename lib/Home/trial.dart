@@ -1,86 +1,101 @@
 import 'package:flutter/material.dart';
 
-void main() {
+void main()
+{
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _State();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _State extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
       appBar: AppBar(
+        backgroundColor: Colors.lightBlueAccent,
+        leading: const Icon(Icons.menu,color: Colors.black,),
+        actions: const [Icon(Icons.more_vert,color: Colors.black,)],
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
         title: const Text(
-          'Map',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+          'Counter App',style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold
         ),
-        leading: Icon(
-          Icons.menu,
-          color : Colors.white,
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      backgroundColor: Colors.blue.shade100,
+      body: Center(
+        child: Container(
+          child: Text(
+            '$count',style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 50,
+          ),
+          ),
+        ),
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          MapList(iconname: const Icon(Icons.exit_to_app, size: 35, color: Colors.black,), name: 'Exit'),
-          MapList(iconname: const Icon(Icons.play_arrow, size: 35, color: Colors.black,), name: 'Play'),
-          MapList(iconname: const Icon(Icons.pause, size: 35, color: Colors.black,), name: 'Pause'),
-          MapList(iconname: const Icon(Icons.stop, size: 35, color: Colors.black,), name: 'Stop'),
-          MapList(iconname: const Icon(Icons.cancel, size: 35, color: Colors.black,), name: 'Close'),
-          MapList(iconname: const Icon(Icons.delete, size: 35, color: Colors.black,), name: 'Delete'),
-          MapList(iconname: const Icon(Icons.email, size: 35, color: Colors.black,), name: 'Email'),
+          FloatingActionButton(
+            child: const Icon(Icons.add,color: Colors.black,size: 30, ),
+            onPressed: () {
+              setState(() {
+                count ++;
+              });
+            },
+backgroundColor: Colors.blueGrey,
+          ),
+          FloatingActionButton(
+            child: const Icon(Icons.remove,color: Colors.black,size: 30,),
+            onPressed: () {
+              setState(() {
+                count --;
+              });
+            },
+            backgroundColor: Colors.blueGrey,
+          ),
+          FloatingActionButton(
+            child: const Icon(Icons.exposure_plus_2,color: Colors.black,size: 30,),
+            onPressed: () {
+              setState(() {
+                count +=2 ;
+              });
+            },
+            backgroundColor: Colors.blueGrey,
+          ),
+          FloatingActionButton(
+            child: const Icon(Icons.exposure_minus_2,color: Colors.black,size: 30,),
+            onPressed: () {
+              setState(() {
+                count -=2 ;
+              });
+            },
+            backgroundColor: Colors.blueGrey,
+          ),
+
         ],
       ),
+
+
+
     );
   }
 }
-
-Container MapList({required Icon iconname, required String name}) {
-  return Container(
-    height: 80,
-    margin: const EdgeInsets.symmetric(vertical: 4),
-    color: Colors.white,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          '$name',
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 30,
-            // fontWeight: FontWeight.bold,
-          ),
-        ),
-        Spacer(),
-        iconname,
-        const SizedBox(
-          width: 10,
-        ),
-      ],
-    ),
-  );
-}
+int count = 0;
